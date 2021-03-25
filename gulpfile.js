@@ -119,20 +119,20 @@ gulp.task('watch', function () {
 // Run a browsersync server, main options managed in gulpconfig.yml
 // Alternative to `gulp watch`, run this if you want to make use of browsersync
 // for real time code/css updates, etc.
-gulp.task('server', ['watch'], function () {
-  browserSync.init(config.browsersync);
+// gulp.task('server', ['watch'], function () {
+//   browserSync.init(config.browsersync);
 
-  browserSync.watch([
-    'assets/css/theme.css',
-    'assets/js/bundle.js',
-    '**/*.php'
-  ])
-  .on('change', browserSync.reload)
-  .on('error', function (err) {
-    console.log('error in browsersync watch', err);
-    this.emit('end');
-  });
-});
+//   browserSync.watch([
+//     'assets/css/theme.css',
+//     'assets/js/bundle.js',
+//     '**/*.php'
+//   ])
+//   .on('change', browserSync.reload)
+//   .on('error', function (err) {
+//     console.log('error in browsersync watch', err);
+//     this.emit('end');
+//   });
+// });
 
 
 // Clean gulp-generated js/css assets (automatically run as part of dist)
@@ -145,6 +145,12 @@ gulp.task('clean', function () {
 
 
 // Multistep tasks & default
-gulp.task('js', ['js-vendor', 'js-commons', 'js-bundle']);
-gulp.task('dist', ['clean', 'js', 'sass']);
-gulp.task('default', ['watch']);
+gulp.task('js', async () => {
+  return gulp.series('js-vendor', 'js-commons', 'js-bundle');
+})
+gulp.task('dist', async () => {
+  return gulp.series('clean', 'js', 'sass');
+});
+gulp.task('default', async () => {
+  return gulp.series('watch');
+});

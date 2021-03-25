@@ -16,7 +16,8 @@ get_header(); ?>
   </article>
 
   <?php endwhile; endif; ?>
-
+  <script src="http://localhost/wordpress/wp-includes/js/vendor.js"></script>
+  <script src="http://localhost/wordpress/wp-includes/js/foundation.js"></script>
 </div><!-- end content -->
 
 <?php // get_sidebar(); ?>
